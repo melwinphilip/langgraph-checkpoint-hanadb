@@ -72,7 +72,9 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
             )
         `;
         await this.db.exec(createCheckpointsTableQuery);
+        await this.db.exec('CALL createCheckpointsTableQueryPROC;');
         await this.db.exec(createCheckpointWritesTableQuery);
+        await this.db.exec('CALL createCheckpointWritesTableQueryPROC;');
     }
     /**
      * Retrieves a checkpoint from the HANA database based on the
