@@ -242,7 +242,7 @@ export class HANADBCheckpointSaver extends BaseCheckpointSaver {
         }
         const operations = writes.map(([channel, value], idx) => {
             const [type, serializedValue] = this.serde.dumpsTyped(value);
-            const query = `UPSERT ${this.checkpointWritesTableName} VALUES (?, ?, ?, ?, ?, ?, ?)`;
+            const query = `UPSERT ${this.checkpointWritesTableName} VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
             const params = [
                 thread_id,
                 checkpoint_ns,
