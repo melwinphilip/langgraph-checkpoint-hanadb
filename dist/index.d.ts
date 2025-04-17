@@ -22,7 +22,7 @@ export declare class HANADBCheckpointSaver extends BaseCheckpointSaver {
     /**
      * Ensures that the necessary tables exist in the HANA database.
      */
-    ensureTablesExist(): Promise<void>;
+    setup(): Promise<void>;
     
     /**
      * Retrieves a checkpoint from the HANA database based on the
