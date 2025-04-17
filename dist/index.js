@@ -38,10 +38,10 @@ export class HANADBCheckpointSaver extends BaseCheckpointSaver {
             checkpointTableName ?? this.checkpointTableName;
         this.checkpointWritesTableName =
             checkpointWritesTableName ?? this.checkpointWritesTableName;
-        this.ensureTablesExist().catch(console.error);
+        //this.ensureTablesExist().catch(console.error);
     }
 
-    async ensureTablesExist() {
+    async setup() {
         const createCheckpointsTableQuery = `
             CREATE OR REPLACE PROCEDURE createCheckpointsTableQueryPROC AS 
             BEGIN
