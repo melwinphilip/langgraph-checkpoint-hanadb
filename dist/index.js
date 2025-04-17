@@ -32,7 +32,7 @@ export class HANADBCheckpointSaver extends BaseCheckpointSaver {
             value: "CHECKPOINT_WRITES"
         });
         this.client = client;
-        this.db = this.client.connect(dbName);
+        //this.db = this.client.connect(dbName); - Commented - MEL
         this.checkpointTableName =
             checkpointTableName ?? this.checkpointTableName;
         this.checkpointWritesTableName =
