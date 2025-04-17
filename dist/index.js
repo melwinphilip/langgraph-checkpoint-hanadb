@@ -63,7 +63,7 @@ export class HANADBCheckpointSaver extends BaseCheckpointSaver {
         CREATE OR REPLACE PROCEDURE createCheckpointWritesTableQueryPROC AS 
             BEGIN
                 IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.createCheckpointWritesTableQuery}') THEN
-            CREATE TABLE IF NOT EXISTS ${this.checkpointWritesTableName} (
+            CREATE TABLE ${this.checkpointWritesTableName} (
                 thread_id NVARCHAR(255),
                 checkpoint_ns NVARCHAR(255),
                 checkpoint_id NVARCHAR(255),
