@@ -49,7 +49,7 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
         const createCheckpointsTableQuery = `
             CREATE OR REPLACE PROCEDURE createCheckpointsTableQueryPROC AS 
             BEGIN
-                IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.checkpointWritesTableName}') THEN
+                IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.checkpointTableName}') THEN
             CREATE TABLE ${this.checkpointTableName} (
                 thread_id NVARCHAR(255),
                 checkpoint_ns NVARCHAR(255),
@@ -66,7 +66,7 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
         const createCheckpointWritesTableQuery = `
         CREATE OR REPLACE PROCEDURE createCheckpointWritesTableQueryPROC AS 
             BEGIN
-                IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.createCheckpointWritesTableQuery}') THEN
+                IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.checkpointWritesTableName}') THEN
             CREATE TABLE IF NOT EXISTS ${this.checkpointWritesTableName} (
                 thread_id NVARCHAR(255),
                 checkpoint_ns NVARCHAR(255),
