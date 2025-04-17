@@ -42,10 +42,10 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
         this.checkpointWritesTableName =
             checkpointWritesTableName ?? this.checkpointWritesTableName;
         
-        this.ensureTablesExist().catch(console.error);
+       // this.ensureTablesExist().catch(console.error);
     }
     
-    async ensureTablesExist() {
+    async setup() {
         const createCheckpointsTableQuery = `
             CREATE OR REPLACE PROCEDURE createCheckpointsTableQueryPROC AS 
             BEGIN
