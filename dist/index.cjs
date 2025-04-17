@@ -35,7 +35,8 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
             value: "CHECKPOINT_WRITES"
         });
         this.client = client;
-        this.db = this.client.connect(dbName);
+        //this.db = this.client.connect(dbName);
+        this.db = client;
         this.checkpointTableName =
             checkpointTableName ?? this.checkpointTableName;
         this.checkpointWritesTableName =
