@@ -67,7 +67,7 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
         CREATE OR REPLACE PROCEDURE createCheckpointWritesTableQueryPROC AS 
             BEGIN
                 IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.checkpointWritesTableName}') THEN
-            CREATE TABLE IF ${this.checkpointWritesTableName} (
+            CREATE TABLE ${this.checkpointWritesTableName} (
                 thread_id NVARCHAR(255),
                 checkpoint_ns NVARCHAR(255),
                 checkpoint_id NVARCHAR(255),
