@@ -47,7 +47,10 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
     
     async ensureTablesExist() {
         const createCheckpointsTableQuery = `
-            CREATE TABLE IF NOT EXISTS ${this.checkpointTableName} (
+            CREATE OR REPLACE PROCEDURE createCheckpointsTableQueryPROC AS 
+            BEGIN
+                IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.checkpointWritesTableName}') THEN
+            CREATE TABLE ${this.checkpointTableName} (
                 thread_id NVARCHAR(255),
                 checkpoint_ns NVARCHAR(255),
                 checkpoint_id NVARCHAR(255),
@@ -56,9 +59,14 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
                 checkpoint CLOB,
                 metadata CLOB,
                 PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id)
-            )
+            );
+            END IF;
+          END;
         `;
         const createCheckpointWritesTableQuery = `
+        CREATE OR REPLACE PROCEDURE createCheckpointWritesTableQueryPROC AS 
+            BEGIN
+                IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE table_name = '${this.createCheckpointWritesTableQuery}') THEN
             CREATE TABLE IF NOT EXISTS ${this.checkpointWritesTableName} (
                 thread_id NVARCHAR(255),
                 checkpoint_ns NVARCHAR(255),
@@ -69,7 +77,9 @@ class HANADBCheckpointSaver extends langgraph_checkpoint_1.BaseCheckpointSaver {
                 type NVARCHAR(255),
                 value CLOB,
                 PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id, task_id, idx)
-            )
+           );
+            END IF;
+          END;
         `;
         await this.db.exec(createCheckpointsTableQuery);
         await this.db.exec('CALL createCheckpointsTableQueryPROC;');
